@@ -38,7 +38,6 @@ class Cupcake(db.Model):
         nullable = False
     )
 
-    # nullable = true?
     image_url = db.Column(
         db.String(500),
         nullable = False,

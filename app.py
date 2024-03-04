@@ -3,7 +3,7 @@ import os
 from models import Cupcake, db, connect_db
 from flask import Flask, render_template, request, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-
+# no need for debug toolbar, FE utility
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     "DATABASE_URL", 'postgresql:///cupcakes')
@@ -37,11 +37,13 @@ def get_cupcake(cupcake_id):
 @app.post('/api/cupcakes')
 def create_cupcake():
     """Create a cupcake"""
+
     flavor = request.json['flavor']
     size = request.json['size']
     rating = request.json['rating']
     image_url = request.json['image_url']
 
+    # restructure key vals
     new_cupcake = Cupcake(
         flavor=flavor,
         size=size,
@@ -55,6 +57,8 @@ def create_cupcake():
     serialized = new_cupcake.serialize()
 
     return (jsonify(cupcake=serialized), 201)
+
+# for JSON APIs , show actual return value. Returns JSON like...
 
 
 
