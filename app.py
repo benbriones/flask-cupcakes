@@ -16,6 +16,11 @@ app.config['SECRET_KEY'] = 'secret'
 
 connect_db(app)
 
+@app.get('/')
+def display_homepage():
+    """displays homepage"""
+    return render_template('homepage.html')
+
 
 @app.get('/api/cupcakes')
 def get_all_cupcakes():
@@ -48,7 +53,7 @@ def create_cupcake():
         flavor=request.json['flavor'],
         size=request.json['size'],
         rating=request.json['rating'],
-        image_url=request.json['image_url']
+        image_url=request.json['image_url'] or None
     )
 
     db.session.add(new_cupcake)
